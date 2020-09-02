@@ -7,19 +7,20 @@ import { Pagination } from "antd";
 import { Home } from "./Pages/home";
 import { Upcoming } from "./Pages/upcoming";
 import { URL_API, API } from "./helpers/API";
-import { useFetch2 } from "./hooks/useFetch2";
+import { useFetch } from "./hooks/useFetch";
 
 import "./MovieApp.scss";
 function MovieApp() {
   const { Header, Content } = Layout;
-  const [pagination, setPagination] = useState(1);
   const [pageTopRated, setPageTopRated] = useState(1);
 
   const url = `${URL_API}/movie/top_rated?api_key=${API}&language=es-Es&page=1`;
-  useFetch2(url, setPagination);
+  //useFetch2(url, setPagination);
+  const { data, loading } = useFetch(url);
+  const { total_pages } = !!data && data;
+  //console.log("pagina23:", total_pages);
 
   const onChange = (e) => {
-    console.log(e);
     setPageTopRated(e);
   };
 
@@ -54,7 +55,7 @@ function MovieApp() {
           className="pagination"
           onChange={onChange}
           defaultCurrent={1}
-          total={pagination}
+          total={total_pages}
         />
       </Router>
     </Layout>
