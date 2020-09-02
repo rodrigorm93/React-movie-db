@@ -16,7 +16,6 @@ export const Home = ({ pageTopRated }) => {
   const urlTopRated = `${URL_API}/movie/top_rated?api_key=${API}&language=es-Es&page=${pageTopRated}`;
   const { data: dataTopRate, loading: loadingTopRated } = useFetch(urlTopRated);
   const { results: TopRated } = !!dataTopRate && dataTopRate;
-  console.log("pagina:", pageTopRated);
 
   return (
     <>

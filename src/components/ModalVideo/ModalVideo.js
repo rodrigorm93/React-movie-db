@@ -9,7 +9,6 @@ export const ModalVideo = ({ isOpen, close, keyVideo }) => {
   const url = `${URL_API}/movie/${keyVideo}/videos?api_key=${API}&language=en-US`;
   const { data: videoMovie, loading } = useFetch(url);
   const { results } = !!videoMovie && videoMovie;
-  console.log("results", results);
 
   const renderVideo = (results, isOpen, close) => {
     if (results) {

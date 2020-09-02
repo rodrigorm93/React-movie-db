@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { Row, Col } from "antd"; //para armar las filas y columnas
-
-import { Card, Rate } from "antd";
-
-import "./MovieListTopRated.scss";
 import { backdropPath } from "../../helpers/API";
+import { Row, Col } from "antd"; //para armar las filas y columnas
+import { Card } from "antd";
 import { ModalVideo } from "../ModalVideo/ModalVideo";
 const { Meta } = Card;
-export const MovieListTopRated = ({ TopRated }) => {
+
+export const UpcomingList = ({ results }) => {
   const [keyVideo, setKeyVideo] = useState("55");
   const [modalVideo, setModalVideo] = useState(false);
 
@@ -19,8 +17,8 @@ export const MovieListTopRated = ({ TopRated }) => {
   return (
     <div>
       <Row>
-        {TopRated.map((movie_top) => (
-          <Col span={4} key={movie_top.id}>
+        {results.map((movie_upcoming) => (
+          <Col span={4} key={movie_upcoming.id}>
             <Card
               className="card-list"
               hoverable
@@ -28,21 +26,19 @@ export const MovieListTopRated = ({ TopRated }) => {
               cover={
                 <img
                   alt="example"
-                  src={`${backdropPath}${movie_top.backdrop_path}`}
-                  onClick={() => getKeyVideo(movie_top.id)}
+                  src={`${backdropPath}${movie_upcoming.backdrop_path}`}
+                  onClick={() => getKeyVideo(movie_upcoming.id)}
                 />
               }
             >
               <Meta
-                title={movie_top.title}
-                description={movie_top.overview.substring(0, 150)}
+                title={movie_upcoming.title}
+                description={movie_upcoming.overview.substring(0, 150)}
               />
-              <Rate
-                allowHalf
-                defaultValue={movie_top.vote_average}
-                count={10}
-                disabled
-              />
+              <hr />
+              <center>
+                <Meta title={movie_upcoming.release_date} />
+              </center>
             </Card>
           </Col>
         ))}

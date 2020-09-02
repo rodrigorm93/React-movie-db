@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 
 import "./MenuTop.scss";
 
-export const MenuTop = () => {
+export const MenuTop = ({ setPageTopRated }) => {
+  const reiniciarPagination = () => {
+    setPageTopRated(1);
+  };
   return (
     <div className="menu-top">
       <div className="menu-top__logo"></div>
@@ -14,6 +17,7 @@ export const MenuTop = () => {
         mode="horizontal"
         defaultSelectedKeys={["1"]}
         style={{ lineHeight: "64px" }}
+        onClick={reiniciarPagination}
       >
         <Menu.Item key="1">
           <Link to="/">Home</Link>

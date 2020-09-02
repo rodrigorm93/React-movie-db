@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Layout } from "antd";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { MenuTop } from "./components/MenuTop/MenuTop";
@@ -15,29 +15,36 @@ function MovieApp() {
   const [pageTopRated, setPageTopRated] = useState(1);
 
   const url = `${URL_API}/movie/top_rated?api_key=${API}&language=es-Es&page=1`;
-  //useFetch2(url, setPagination);
-  const { data, loading } = useFetch(url);
+  const { data } = useFetch(url);
   const { total_pages } = !!data && data;
-  //console.log("pagina23:", total_pages);
+
+  const [pagination, setpagination] = useState(1);
 
   const onChange = (e) => {
     setPageTopRated(e);
   };
 
+  useEffect(() => {
+    setpagination(total_pages);
+  }, [total_pages]);
+
   return (
     <Layout>
       <Router>
         <Header style={{ zIndex: 1 }}>
-          <MenuTop />
+          <MenuTop setPageTopRated={setPageTopRated} />
         </Header>
 
         <Content>
           <Route path="/" exact={true}>
-            <Home pageTopRated={pageTopRated} />
+            <Home
+              pageTopRated={pageTopRated}
+              setPageTopRated={setPageTopRated}
+            />
           </Route>
           <Switch>
             <Route path="/upcoming" exact={true}>
-              <Upcoming />
+              <Upcoming pagination={pageTopRated} />
             </Route>
 
             <Route path="" exact={true}></Route>
@@ -55,7 +62,8 @@ function MovieApp() {
           className="pagination"
           onChange={onChange}
           defaultCurrent={1}
-          total={total_pages}
+          total={pagination}
+          current={pageTopRated}
         />
       </Router>
     </Layout>
