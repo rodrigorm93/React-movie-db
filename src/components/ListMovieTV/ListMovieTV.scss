@@ -1,0 +1,21 @@
+.box-card-list {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 95%;
+
+  img {
+    height: 300px;
+  }
+  .card-list {
+    //margin-right: auto !important;
+    padding: 6px;
+    height: 100%;
+  }
+
+  .card-list-colum {
+    align-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 5px;
+  }
+}
