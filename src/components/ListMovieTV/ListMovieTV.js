@@ -41,11 +41,11 @@ export const ListMovieTV = ({ list, url, setKeyVideo }) => {
     <div className="box-card-list">
       <Row>
         {list.map((lists) => (
-          <Col span={4} key={lists.id} className="card-list-colum">
+          <Col span={6} key={lists.id} className="card-list-colum">
             <Card
               className="card-list"
               hoverable
-              style={{ width: 220 }}
+              style={{ width: 300 }}
               cover={
                 <img
                   alt="example"
@@ -58,7 +58,7 @@ export const ListMovieTV = ({ list, url, setKeyVideo }) => {
                 <>
                   <Meta
                     title={lists.title}
-                    description={lists.overview.substring(0, 150) + "..."}
+                    description={lists.overview.substring(0, 50) + "..."}
                   />
 
                   <br />
@@ -70,7 +70,7 @@ export const ListMovieTV = ({ list, url, setKeyVideo }) => {
                       className="text-center"
                       variant="light"
                     >
-                      More...
+                      More
                     </Button>
                   </center>
                 </>
@@ -96,11 +96,6 @@ export const ListMovieTV = ({ list, url, setKeyVideo }) => {
                 </>
               )}
 
-              <ModalOverview
-                modalOverview={modalOverview}
-                isCloseModalOverview={isCloseModalOverview}
-                infoMovie={infoMovie}
-              />
               <hr />
 
               <p className="text-center">{lists.release_date}</p>
@@ -114,6 +109,12 @@ export const ListMovieTV = ({ list, url, setKeyVideo }) => {
           </Col>
         ))}
       </Row>
+
+      <ModalOverview
+        modalOverview={modalOverview}
+        isCloseModalOverview={isCloseModalOverview}
+        infoMovie={infoMovie}
+      />
 
       <RenderVideo
         isOpen={modalVideo}

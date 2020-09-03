@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Layout } from "antd";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { MenuTop } from "./components/MenuTop/MenuTop";
 import { Pagination } from "antd";
 
@@ -62,40 +67,40 @@ function MovieApp() {
         </Header>
 
         <Content>
-          <Route path="/" exact={true}>
-            <Home
-              pageTopRated={pageTopRated}
-              setPageTopRated={setPageTopRated}
-            />
-          </Route>
           <Switch>
-            <Route path="/upcomingMovie" exact={true}>
+            <Route exact path="/">
+              <Home
+                pageTopRated={pageTopRated}
+                setPageTopRated={setPageTopRated}
+              />
+            </Route>
+
+            <Route exact path="/upcomingMovie">
               <UpcomingMovie pagination={pageTopRated} />
             </Route>
 
-            <Route path="/topRatedTV" exact={true}>
+            <Route exact path="/topRatedTV">
               <TopRatedTV pagination={pageTopRated} />
             </Route>
 
-            <Route path="/popularTV" exact={true}>
+            <Route exact path="/popularTV">
               <PopularTV pagination={pageTopRated} />
             </Route>
-            <Route path="" exact={true}></Route>
 
-            <Route path="" exact={true}></Route>
-
-            <Route path="*"></Route>
+            <Redirect to="/" />
           </Switch>
         </Content>
+      </Router>
+
+      <footer>
         <Pagination
-          className="pagination"
           onChange={onChange}
           defaultCurrent={1}
           total={pagination}
           current={pageTopRated}
           defaultPageSize={pagination}
         />
-      </Router>
+      </footer>
     </Layout>
   );
 }

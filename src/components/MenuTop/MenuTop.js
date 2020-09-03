@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu } from "antd";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { SettingOutlined } from "@ant-design/icons";
 
 import "./MenuTop.scss";
@@ -44,24 +44,37 @@ export const MenuTop = ({
         defaultSelectedKeys={["1"]}
         style={{ lineHeight: "64px" }}
       >
+        <Menu.Item key="app">
+          <Link exact to="/">
+            MovieDB
+          </Link>
+        </Menu.Item>
         <SubMenu icon={<SettingOutlined />} title="Movie">
           <Menu.ItemGroup title="Category">
             <Menu.Item key="1" onClick={reiniciarPaginationTopRated}>
-              <Link to="/">Top Rated</Link>
+              <NavLink exact activeClassName="active" to="/">
+                Top Rated
+              </NavLink>
             </Menu.Item>
             <Menu.Item key="2" onClick={reiniciarPaginationUpcoming}>
-              <Link to="/upcomingMovie">Upcoming</Link>
+              <NavLink exact activeClassName="active" to="/upcomingMovie">
+                Upcoming
+              </NavLink>
             </Menu.Item>
           </Menu.ItemGroup>
         </SubMenu>
 
         <SubMenu icon={<SettingOutlined />} title="TV">
           <Menu.ItemGroup title="Category">
-            <Menu.Item key="1" onClick={reiniciarPaginationTopRatedTV}>
-              <Link to="/topRatedTV">Top Rated</Link>
+            <Menu.Item key="3" onClick={reiniciarPaginationTopRatedTV}>
+              <NavLink exact activeClassName="active" to="/topRatedTV">
+                Top Rated
+              </NavLink>
             </Menu.Item>
-            <Menu.Item key="2" onClick={reiniciarPaginationPopularTV}>
-              <Link to="/popularTV">Popular</Link>
+            <Menu.Item key="4" onClick={reiniciarPaginationPopularTV}>
+              <NavLink exact activeClassName="active" to="/popularTV">
+                Popular
+              </NavLink>
             </Menu.Item>
           </Menu.ItemGroup>
         </SubMenu>
