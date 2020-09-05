@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu } from "antd";
 import { Link, NavLink } from "react-router-dom";
-import { SettingOutlined } from "@ant-design/icons";
+import { VideoCameraOutlined, HomeOutlined } from "@ant-design/icons";
 
 import "./MenuTop.scss";
 const { SubMenu } = Menu;
@@ -14,24 +14,9 @@ export const MenuTop = ({
   total_pages_top_tv,
   total_popular_tv,
 }) => {
-  const reiniciarPaginationTopRated = () => {
+  const reiniciarPagination = (total_pagination) => {
     setPageTopRated(1);
-    setpagination(total_pages_topRates);
-  };
-
-  const reiniciarPaginationUpcoming = () => {
-    setPageTopRated(1);
-    setpagination(total_pages_upcoming);
-  };
-
-  const reiniciarPaginationTopRatedTV = () => {
-    setPageTopRated(1);
-    setpagination(total_pages_top_tv);
-  };
-
-  const reiniciarPaginationPopularTV = () => {
-    setPageTopRated(1);
-    setpagination(total_popular_tv);
+    setpagination(total_pagination);
   };
 
   return (
@@ -44,40 +29,69 @@ export const MenuTop = ({
         defaultSelectedKeys={["1"]}
         style={{ lineHeight: "64px" }}
       >
-        <Menu.Item key="app">
-          <Link exact to="/">
+        <Menu.Item key="app" icon={<HomeOutlined />}>
+          <Link
+            to="/home"
+            onClick={() => reiniciarPagination(total_pages_topRates)}
+          >
             MovieDB
           </Link>
         </Menu.Item>
-        <SubMenu icon={<SettingOutlined />} title="Movie">
+
+        <SubMenu icon={<VideoCameraOutlined />} title="Movie">
           <Menu.ItemGroup title="Category">
-            <Menu.Item key="1" onClick={reiniciarPaginationTopRated}>
-              <NavLink exact activeClassName="active" to="/">
+            <Menu.Item
+              key="1"
+              onClick={() => reiniciarPagination(total_pages_topRates)}
+            >
+              <NavLink exact activeClassName="active" to="/home">
                 Top Rated
               </NavLink>
             </Menu.Item>
-            <Menu.Item key="2" onClick={reiniciarPaginationUpcoming}>
+            <Menu.Item
+              key="2"
+              onClick={() => reiniciarPagination(total_pages_upcoming)}
+            >
               <NavLink exact activeClassName="active" to="/upcomingMovie">
                 Upcoming
+              </NavLink>
+            </Menu.Item>
+
+            <Menu.Item
+              key="3"
+              onClick={() => reiniciarPagination(total_pages_upcoming)}
+            >
+              <NavLink exact activeClassName="active" to="/PopularMovie">
+                Popular
               </NavLink>
             </Menu.Item>
           </Menu.ItemGroup>
         </SubMenu>
 
-        <SubMenu icon={<SettingOutlined />} title="TV">
+        <SubMenu icon={<VideoCameraOutlined />} title="TV">
           <Menu.ItemGroup title="Category">
-            <Menu.Item key="3" onClick={reiniciarPaginationTopRatedTV}>
+            <Menu.Item
+              key="4"
+              onClick={() => reiniciarPagination(total_pages_top_tv)}
+            >
               <NavLink exact activeClassName="active" to="/topRatedTV">
                 Top Rated
               </NavLink>
             </Menu.Item>
-            <Menu.Item key="4" onClick={reiniciarPaginationPopularTV}>
+            <Menu.Item
+              key="5"
+              onClick={() => reiniciarPagination(total_popular_tv)}
+            >
               <NavLink exact activeClassName="active" to="/popularTV">
                 Popular
               </NavLink>
             </Menu.Item>
           </Menu.ItemGroup>
         </SubMenu>
+
+        <Menu.Item key="login" icon={<HomeOutlined />}>
+          <Link to="/login">Login</Link>
+        </Menu.Item>
       </Menu>
     </div>
   );

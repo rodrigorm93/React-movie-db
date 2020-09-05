@@ -6,12 +6,6 @@ import "./CarouselsApp.scss";
 import { backdropPath } from "../../helpers/API";
 
 export const CarouselsApp = ({ results }) => {
-  //const [index, setIndex] = useState(0);
-
-  //const handleSelect = (selectedIndex, e) => {
-  //setIndex(selectedIndex);
-  // };
-
   return (
     <Carousel className="carousels-app">
       {results.map((now_playing) => (

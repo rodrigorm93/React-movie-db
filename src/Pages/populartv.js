@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { URL_API, API } from "../helpers/API";
 import { useFetch } from "../hooks/useFetch";
 import { Spinner } from "react-bootstrap";
 import { ListMovieTV } from "../components/ListMovieTV/ListMovieTV";
 import "./styles.scss";
-export const PopularTV = ({ pagination }) => {
+import { UserContext } from "../components/UserContext";
+export const PopularTV = () => {
+  const { pageTopRated: pagination } = useContext(UserContext);
+
   const [keyVideo, setKeyVideo] = useState("55");
 
   const url_video = `${URL_API}/tv/${keyVideo}/videos?api_key=${API}&language=en-US`;

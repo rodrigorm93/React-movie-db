@@ -23,8 +23,12 @@ export const useFetch = (url) => {
           console.log("Setstate no se llamo");
         }
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch(() => {
+        setstate({
+          loading: false,
+          error: "No se pudo cargar la info",
+          data: null,
+        });
       });
   }, [url]);
 

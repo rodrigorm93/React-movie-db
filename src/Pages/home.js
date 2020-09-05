@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { CarouselsApp } from "../components/CarouselsApp/CarouselsApp";
 import { useFetch } from "../hooks/useFetch";
 import { URL_API, API } from "../helpers/API";
@@ -6,7 +6,12 @@ import { Spinner } from "react-bootstrap";
 import { ListMovieTV } from "../components/ListMovieTV/ListMovieTV";
 
 import "./styles.scss";
-export const Home = ({ pageTopRated }) => {
+import { UserContext } from "../components/UserContext";
+export const Home = ({ category }) => {
+  console.log("category", category);
+
+  const { pageTopRated } = useContext(UserContext); //sacmaos la pagina en la que vamos en la navegacion
+
   const [keyVideo, setKeyVideo] = useState("55");
 
   //Ultimos estrenos para carousel
@@ -38,6 +43,7 @@ export const Home = ({ pageTopRated }) => {
             list={TopRated}
             url={url_video}
             setKeyVideo={setKeyVideo}
+            category={category}
           />
         </>
       )}
