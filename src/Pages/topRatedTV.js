@@ -7,7 +7,6 @@ import { ListMovieTV } from "../components/ListMovieTV/ListMovieTV";
 import "./styles.scss";
 import { UserContext } from "../components/UserContext";
 export const TopRatedTV = ({ category }) => {
-  console.log("category", category);
   const { pageTopRated: pagination } = useContext(UserContext);
   const [keyVideo, setKeyVideo] = useState("55");
 

@@ -1,7 +1,12 @@
 import React from "react";
 import { Menu } from "antd";
 import { Link, NavLink } from "react-router-dom";
-import { VideoCameraOutlined, HomeOutlined } from "@ant-design/icons";
+import {
+  VideoCameraOutlined,
+  HomeOutlined,
+  SearchOutlined,
+  LoginOutlined,
+} from "@ant-design/icons";
 
 import "./MenuTop.scss";
 const { SubMenu } = Menu;
@@ -89,7 +94,11 @@ export const MenuTop = ({
           </Menu.ItemGroup>
         </SubMenu>
 
-        <Menu.Item key="login" icon={<HomeOutlined />}>
+        <Menu.Item key="search" icon={<SearchOutlined />}>
+          <Link to="/search">Search</Link>
+        </Menu.Item>
+
+        <Menu.Item key="login" icon={<LoginOutlined />}>
           <Link to="/login">Login</Link>
         </Menu.Item>
       </Menu>

@@ -8,13 +8,12 @@ import { ListMovieTV } from "../components/ListMovieTV/ListMovieTV";
 import "./styles.scss";
 import { UserContext } from "../components/UserContext";
 export const Home = ({ category }) => {
-  console.log("category", category);
-
   const { pageTopRated } = useContext(UserContext); //sacmaos la pagina en la que vamos en la navegacion
 
   const [keyVideo, setKeyVideo] = useState("55");
 
   //Ultimos estrenos para carousel
+
   const url = `${URL_API}/movie/now_playing?api_key=${API}&language=es-ES&page=1`;
   const { data, loading } = useFetch(url);
   const { results } = !!data && data;
@@ -23,6 +22,7 @@ export const Home = ({ category }) => {
 
   const urlTopRated = `${URL_API}/movie/top_rated?api_key=${API}&language=es-Es&page=${pageTopRated}`;
   const { data: dataTopRate, loading: loadingTopRated } = useFetch(urlTopRated);
+
   const { results: TopRated } = !!dataTopRate && dataTopRate;
 
   const url_video = `${URL_API}/movie/${keyVideo}/videos?api_key=${API}&language=en-US`;

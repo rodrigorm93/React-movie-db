@@ -13,6 +13,7 @@ import { UserContext } from "../UserContext";
 import { URL_API, API } from "../../helpers/API";
 import { useFetch } from "../../hooks/useFetch";
 import { DetailMovieTV } from "../DetailMovieTV/DetailMovieTV";
+import { Search } from "../Search/Search";
 
 export const DashboardRouter = () => {
   const { Header } = Layout;
@@ -56,6 +57,8 @@ export const DashboardRouter = () => {
           </Route>
 
           <Route exact path="/movieTv/:movieTvId" component={DetailMovieTV} />
+
+          <Route exact path="/search" component={Search} />
 
           <Route exact path="/upcomingMovie">
             <UpcomingMovie category={true} />

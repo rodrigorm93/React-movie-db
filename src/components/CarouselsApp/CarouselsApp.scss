@@ -13,3 +13,11 @@
     font-family: "Times New Roman", Times, serif;
   }
 }
+
+.link-description {
+  color: white;
+  
+  &:hover {
+    color: black;
+  }
+}

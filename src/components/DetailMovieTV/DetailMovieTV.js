@@ -13,6 +13,7 @@ import "./DetailMovieTV.scss";
 export const DetailMovieTV = () => {
   const { setpagination } = useContext(UserContext); //le asigamos nuestro componente usercontext para buscar todo lo que tenga adentro
   const [modalDetailVideo, setModalDetailVideo] = useState(false);
+  const [modalDetailVideoEs, setModalDetailVideoEs] = useState(false);
 
   const { movieTvId } = useParams();
 
@@ -21,6 +22,8 @@ export const DetailMovieTV = () => {
   const results = !!data && data;
 
   const url_video = `${URL_API}/movie/${movieTvId}/videos?api_key=${API}&language=en-US`;
+
+  const url_video_esp = `${URL_API}/movie/${movieTvId}/videos?api_key=${API}&language=es-ES`;
 
   useEffect(() => {
     setpagination(0);
@@ -34,7 +37,7 @@ export const DetailMovieTV = () => {
         </Spinner>
       ) : (
         <>
-          <Card className="bg-dark text-white">
+          <Card className="bg-dark text-white animate__animated animate__pulse">
             <Card.Img
               className="img_poster"
               src={`${backdropPath}${results.backdrop_path}`}
@@ -76,6 +79,14 @@ export const DetailMovieTV = () => {
                 >
                   Ver Trailer
                 </Button>
+
+                <Button
+                  className="btn_play"
+                  onClick={() => setModalDetailVideoEs(true)}
+                  icon={<PlayCircleOutlined />}
+                >
+                  Ver Trailer (Español)
+                </Button>
               </Card.Text>
             </Card.ImgOverlay>
           </Card>
@@ -83,6 +94,12 @@ export const DetailMovieTV = () => {
             isOpen={modalDetailVideo}
             close={() => setModalDetailVideo(false)}
             url={url_video}
+          />
+
+          <RenderVideo
+            isOpen={modalDetailVideoEs}
+            close={() => setModalDetailVideoEs(false)}
+            url={url_video_esp}
           />
         </>
       )}

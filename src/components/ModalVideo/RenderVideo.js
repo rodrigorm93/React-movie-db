@@ -22,7 +22,6 @@ export const RenderVideo = ({ isOpen, close, url }) => {
           </>
         );
       } else {
-        console.log("otierne");
         return (
           <>
             <Modal centered visible={isOpen} onCancel={close} onOk={close}>

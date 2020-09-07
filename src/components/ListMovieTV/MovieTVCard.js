@@ -34,7 +34,7 @@ export const MovieTVCard = ({ lists, setKeyVideo, url, category }) => {
   return (
     <>
       <Card
-        className="card-list"
+        className="card-list animate__animated animate__fadeIn"
         hoverable
         style={{ width: 300 }}
         cover={

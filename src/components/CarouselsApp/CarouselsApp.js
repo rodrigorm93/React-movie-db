@@ -4,6 +4,7 @@ import { Carousel } from "react-bootstrap";
 
 import "./CarouselsApp.scss";
 import { backdropPath } from "../../helpers/API";
+import { Link } from "react-router-dom";
 
 export const CarouselsApp = ({ results }) => {
   return (
@@ -18,6 +19,10 @@ export const CarouselsApp = ({ results }) => {
           <Carousel.Caption>
             <h3>{now_playing.title}</h3>
             <p>{now_playing.overview}</p>
+
+            <Link to={`./movieTv/${now_playing.id}`}>
+              <h4 className="link-description">Descripción</h4>
+            </Link>
           </Carousel.Caption>
         </Carousel.Item>
       ))}

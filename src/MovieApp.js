@@ -8,10 +8,11 @@ import { Pagination } from "antd";
 
 import "./MovieApp.scss";
 function MovieApp() {
-  const { Content } = Layout;
+  const { Content, Footer } = Layout;
   const [pageTopRated, setPageTopRated] = useState(1); //contador de paginas, nos indica en que pagina vamos en la paginacion
 
   const url = `${URL_API}/movie/top_rated?api_key=${API}&language=es-Es&page=1`;
+
   const { data } = useFetch(url);
   const { total_pages: total_pages_topRates } = !!data && data;
 
@@ -40,15 +41,16 @@ function MovieApp() {
           </UserContext.Provider>
         </Content>
       </Layout>
-      <footer>
+      <Footer>
         <Pagination
           onChange={onChange}
           defaultCurrent={1}
           total={pagination}
           current={pageTopRated}
           defaultPageSize={pagination}
+          className="footer"
         />
-      </footer>
+      </Footer>
     </>
   );
 }
