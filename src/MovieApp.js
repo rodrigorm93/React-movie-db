@@ -1,13 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import { Layout } from "antd";
 import { URL_API, API } from "./helpers/API";
 import { useFetch } from "./hooks/useFetch";
-import { UserContext } from "./components/UserContext";
 import { AppRouter } from "./components/routers/AppRouter";
 import { Pagination } from "antd";
 
 import "./MovieApp.scss";
+import { authReducer } from "./components/Auth/authReducer";
+import { AuthContext } from "./components/Auth/AuthContext";
+
+const init = () => {
+  //ver si esta el usuario, retonara el usuari sino existe retornara el logged en false
+
+  return JSON.parse(localStorage.getItem("user")) || { logged: false }; //si hay un usuario guardado lo retornara
+};
+
 function MovieApp() {
+  const [user, dispatch] = useReducer(authReducer, {}, init); //el reducer regresara un user
+
   const { Content, Footer } = Layout;
   const [pageTopRated, setPageTopRated] = useState(1); //contador de paginas, nos indica en que pagina vamos en la paginacion
 
@@ -22,6 +32,12 @@ function MovieApp() {
   useEffect(() => {
     setpagination(total_pages_topRates); //totoal de apginas
   }, [total_pages_topRates]);
+
+  //Usuario
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
+
   const onChange = (e) => {
     setPageTopRated(e); //pagina actual
   };
@@ -30,15 +46,17 @@ function MovieApp() {
     <>
       <Layout>
         <Content>
-          <UserContext.Provider
+          <AuthContext.Provider
             value={{
               pageTopRated,
               setPageTopRated,
               setpagination,
+              user,
+              dispatch,
             }}
           >
             <AppRouter />
-          </UserContext.Provider>
+          </AuthContext.Provider>
         </Content>
       </Layout>
       <Footer>

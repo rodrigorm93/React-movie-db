@@ -6,9 +6,9 @@ import { Spinner } from "react-bootstrap";
 import { ListMovieTV } from "../components/ListMovieTV/ListMovieTV";
 
 import "./styles.scss";
-import { UserContext } from "../components/UserContext";
+import { AuthContext } from "../components/Auth/AuthContext";
 export const Home = ({ category }) => {
-  const { pageTopRated } = useContext(UserContext); //sacmaos la pagina en la que vamos en la navegacion
+  const { pageTopRated } = useContext(AuthContext); //sacmaos la pagina en la que vamos en la navegacion
 
   const [keyVideo, setKeyVideo] = useState("55");
 
@@ -43,7 +43,7 @@ export const Home = ({ category }) => {
             list={TopRated}
             url={url_video}
             setKeyVideo={setKeyVideo}
-            category={category}
+            category="movie"
           />
         </>
       )}

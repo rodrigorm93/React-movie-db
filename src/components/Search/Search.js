@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Row, Col, Input } from "antd";
 import queryString from "query-string";
-import { useLocation } from "react-router-dom";
+//import { useLocation } from "react-router-dom";
 import { URL_API, API } from "../../helpers/API";
 import { ListMovieTV } from "../ListMovieTV/ListMovieTV";
 import { useForm } from "../../hooks/useForm";
@@ -9,13 +9,14 @@ import { useForm } from "../../hooks/useForm";
 import { Button } from "react-bootstrap";
 
 import "./Search.scss";
-import { UserContext } from "../UserContext";
+import { AuthContext } from "../Auth/AuthContext";
 //import { useFetch } from "../../hooks/useFetch";
 
-export const Search = ({ history }) => {
-  const { setpagination } = useContext(UserContext); //sacmaos la pagina en la que vamos en la navegacion
+export const Search = (props) => {
+  const { location, history } = props;
+  const { setpagination } = useContext(AuthContext); //sacmaos la pagina en la que vamos en la navegacion
 
-  const location = useLocation(); // para obenter la url de busqueda
+  //const location = useLocation(); // para obenter la url de busqueda
   const [movieList, setMovieList] = useState([]);
 
   const [envio, setenvio] = useState(false);
@@ -39,9 +40,15 @@ export const Search = ({ history }) => {
   //realizamos al busqueda cada vez que enviemos el formulario:
   useEffect(() => {
     (async () => {
+      const { q = "" } = queryString.parse(location.search); //separamos la q de la palbara escrita, si es vacio igualamos el q a un string vacio
+
       //const searchValue = queryString.parseUrl(location.search); //devuelve {url: "", query: {…}} y dentro en s esta el nombre de la peli
       // const { s } = searchValue.query; //s tiene el nombre de la pelicula que escriba
       //vamos hacer la peticion http
+
+      //const url = `${URL_API}/search/movie/?api_key=${API}&language=es-Es&query=${searchText}&page=1`;
+      //const { data } = useFetch(url);
+      //const { results } = !!data && data;
       const response = await fetch(
         `${URL_API}/search/movie/?api_key=${API}&language=es-Es&query=${q}&page=1`
       );
@@ -49,7 +56,7 @@ export const Search = ({ history }) => {
 
       setMovieList(movies.results); //ahora guardamos el resultado en un estado
       setenvio(false);
-      setpagination(0);
+      // setpagination(0);
     })();
   }, [envio]);
 
@@ -58,6 +65,7 @@ export const Search = ({ history }) => {
     history.push(`?q=${searchText}`);
 
     reset(); //borramos todos el contenido del input
+    setpagination(0);
     setenvio(true);
   };
   //<Button type="submit" variant="light">

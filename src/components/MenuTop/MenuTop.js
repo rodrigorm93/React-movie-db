@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Menu } from "antd";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import {
   VideoCameraOutlined,
   HomeOutlined,
@@ -9,19 +9,47 @@ import {
 } from "@ant-design/icons";
 
 import "./MenuTop.scss";
+import { AuthContext } from "../Auth/AuthContext";
+import { types } from "../../types/types";
+import { URL_API, API } from "../../helpers/API";
+import { useFetch } from "../../hooks/useFetch";
 const { SubMenu } = Menu;
 
-export const MenuTop = ({
-  setPageTopRated,
-  total_pages_topRates,
-  setpagination,
-  total_pages_upcoming,
-  total_pages_top_tv,
-  total_popular_tv,
-}) => {
+export const MenuTop = () => {
   const reiniciarPagination = (total_pagination) => {
     setPageTopRated(1);
     setpagination(total_pagination);
+  };
+
+  const { user, dispatch, setPageTopRated, setpagination } = useContext(
+    AuthContext
+  ); //le asigamos nuestro componente usercontext para buscar todo lo que tenga adentro
+
+  const url = `${URL_API}/movie/top_rated?api_key=${API}&language=es-Es&page=1`;
+  const { data } = useFetch(url);
+  const { total_pages: total_pages_topRates } = !!data && data;
+
+  const urlUpcoming = `${URL_API}/movie/upcoming?api_key=${API}&language=es-ES&page=1`;
+  const { data: dataUpcoming } = useFetch(urlUpcoming);
+  const { total_pages: total_pages_upcoming } = !!dataUpcoming && dataUpcoming;
+
+  const urlTopRatedTV = `${URL_API}/tv/top_rated?api_key=${API}&language=es-ES&page=1`;
+  const { data: dataTopRatedTV } = useFetch(urlTopRatedTV);
+  const { total_pages: total_pages_top_tv } =
+    !!dataTopRatedTV && dataTopRatedTV;
+
+  const urlPopularTV = `${URL_API}/tv/popular?api_key=${API}&language=es-ES&page=1`;
+  const { data: dataPopularTV } = useFetch(urlPopularTV);
+  const { total_pages: total_popular_tv } = !!dataPopularTV && dataPopularTV;
+
+  const history = useHistory(); //hoosk des react-dom para poder uswer el hytory en un compoenente que no es una ruta
+  const handleLogout = () => {
+    history.replace("/");
+    dispatch({
+      // disparamos la accion
+
+      type: types.logout,
+    });
   };
 
   return (
@@ -98,9 +126,21 @@ export const MenuTop = ({
           <Link to="/search">Search</Link>
         </Menu.Item>
 
-        <Menu.Item key="login" icon={<LoginOutlined />}>
-          <Link to="/login">Login</Link>
-        </Menu.Item>
+        {user.logged ? (
+          <SubMenu icon={<VideoCameraOutlined />} title={user.name}>
+            <Menu.Item key="logout" icon={<LoginOutlined />}>
+              <button onClick={handleLogout}>Logout</button>
+            </Menu.Item>
+
+            <Menu.Item key="addPelicula" icon={<LoginOutlined />}>
+              <Link to="/addPelicula">Agregar Pelicula</Link>
+            </Menu.Item>
+          </SubMenu>
+        ) : (
+          <Menu.Item key="logout" icon={<LoginOutlined />}>
+            <Link to="/login">Login</Link>
+          </Menu.Item>
+        )}
       </Menu>
     </div>
   );

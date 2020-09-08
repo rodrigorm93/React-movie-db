@@ -4,13 +4,12 @@ import { useFetch } from "../hooks/useFetch";
 import { Spinner } from "react-bootstrap";
 import { ListMovieTV } from "../components/ListMovieTV/ListMovieTV";
 
-import { UserContext } from "../components/UserContext";
-
 import "./styles.scss";
+import { AuthContext } from "../components/Auth/AuthContext";
 
 export const PopularMovie = ({ category }) => {
   const [keyVideo, setKeyVideo] = useState("55");
-  const { pageTopRated: pagination } = useContext(UserContext);
+  const { pageTopRated: pagination } = useContext(AuthContext);
 
   const url_video = `${URL_API}/movie/${keyVideo}/videos?api_key=${API}&language=en-US`;
 
@@ -31,7 +30,7 @@ export const PopularMovie = ({ category }) => {
             list={results}
             url={url_video}
             setKeyVideo={setKeyVideo}
-            category={category}
+            category="movie"
           />
         </>
       )}

@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { UserContext } from "../UserContext";
 import { URL_API, API, backdropPath } from "../../helpers/API";
 import { useFetch } from "../../hooks/useFetch";
 import { Spinner, Card } from "react-bootstrap";
@@ -9,9 +8,10 @@ import { Button, Progress } from "antd";
 import { PlayCircleOutlined } from "@ant-design/icons";
 
 import "./DetailMovieTV.scss";
+import { AuthContext } from "../Auth/AuthContext";
 
 export const DetailMovieTV = () => {
-  const { setpagination } = useContext(UserContext); //le asigamos nuestro componente usercontext para buscar todo lo que tenga adentro
+  const { setpagination } = useContext(AuthContext); //le asigamos nuestro componente usercontext para buscar todo lo que tenga adentro
   const [modalDetailVideo, setModalDetailVideo] = useState(false);
   const [modalDetailVideoEs, setModalDetailVideoEs] = useState(false);
 

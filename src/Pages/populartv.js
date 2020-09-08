@@ -4,9 +4,9 @@ import { useFetch } from "../hooks/useFetch";
 import { Spinner } from "react-bootstrap";
 import { ListMovieTV } from "../components/ListMovieTV/ListMovieTV";
 import "./styles.scss";
-import { UserContext } from "../components/UserContext";
+import { AuthContext } from "../components/Auth/AuthContext";
 export const PopularTV = () => {
-  const { pageTopRated: pagination } = useContext(UserContext);
+  const { pageTopRated: pagination } = useContext(AuthContext);
 
   const [keyVideo, setKeyVideo] = useState("55");
 
