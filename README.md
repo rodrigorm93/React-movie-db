@@ -1,7 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 
-##Se puede ver en : https://rodrigorm93.github.io/React-movie-db/
+## Publicado : https://rodrigorm93.github.io/React-movie-db/
 
 Proyecto WEB realizado con REACTJS utilizando la API de MovieDB
 
